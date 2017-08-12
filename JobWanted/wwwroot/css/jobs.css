@@ -1,0 +1,322 @@
+﻿.clearfix {
+    overflow: auto;
+    _height: 1%;
+}
+
+* {
+    /*padding: 0px;*/ /*这里会影响百度编辑器的 序列*/
+    margin: 0px;
+    box-sizing: border-box; /*设置元素边框为 内容 + padding + 边框的宽度（不包括margin）; [如果默认不设置此属性的话 那么宽度仅仅只是 元素里面的内容宽度] */
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42757143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-family: inherit;
+    text-transform: none;
+    overflow: visible;
+}
+
+    .btn-default:focus,
+    .btn-default.focus {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #8c8c8c;
+    }
+
+    .btn-default:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+
+    .btn-default:active,
+    .btn-default.active,
+    .open > .dropdown-toggle.btn-default {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+
+.jobKey {
+    /*display: block;*/
+    width: 300px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.displayNone {
+    display: none;
+}
+
+.chosen {
+    background-color: #f3f3f3;
+}
+
+.loading {
+    text-align: center;
+}
+
+.mouseover {
+    background-color: #eed1b6;
+}
+
+.detailsSketch {
+    text-align: center;
+}
+
+.detailsBlock {
+    padding-top: 15px;
+    font-size: 14px;
+}
+
+.detailsBlock-title {
+    border-left: 4px solid #f8ad5a;
+    padding-left: 7px;
+    margin-bottom: 7px;
+    font-size: 16px;
+}
+
+div.jobinfo, div.detailsInfo {
+    border: 1px solid #e1e1e1;
+    border-top: 0px;
+    padding: 15px;
+}
+
+div.detailsInfo {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.jobdiv {
+    margin: 5px;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #faf6f6;
+}
+
+a {
+    text-decoration: none;
+    color: #038bd9;
+}
+
+.sodivBut, .sodivChk {
+    float: left;
+    height: 33px;
+    line-height: 30px;
+}
+
+.sodivChk {
+    margin-left: 8px;
+}
+
+.sodiv {
+    display: table;
+    margin: 0px auto;
+}
+
+.jobHeadDiv {
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 1px dashed #d5cdcd;
+    border-bottom: none;
+    background-color: #7dc8f3;
+}
+
+    .jobHeadDiv a, .temp_place {
+        color: #fff;
+    }
+
+.hid_place_div {
+    border: 1px dashed #d1d4e8;
+    padding-bottom: 10px;
+    display: none;
+    margin-top: 5px;
+    padding-top: 5px;
+    position: absolute;
+    width: 644px;
+    left: 353px;
+    background-color: #7dc8f3;
+}
+
+.dataDiv {
+    background-color: rgb(250, 251, 251);
+}
+
+.jobHeadDiv .select_place_a, .select_place_a .temp_place {
+    color: #b95454;
+}
+
+.mytableSelect, .hid_place_div {
+    padding: 10px;
+}
+
+.div_a_bottom {
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+* {
+    color: #666;
+}
+
+div.col {
+    float: left;
+}
+
+/*pc端*/
+@media (min-width: 992px) {
+    div.col.clearfix {
+        width: 35%;
+    }
+
+    div.col.positionName {
+        float: initial;
+    }
+
+    div.col.corporateName {
+        float: initial;
+        padding-top: 5px;
+        font-size: 14px;
+    }
+
+    div.col.workingPlace {
+        width: 10%;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    div.col.releaseDate {
+        width: 20%;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    div.col.salaryType {
+        width: 10%;
+        padding-top: 10px;
+    }
+
+    div.col.salary {
+        width: 15%;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    div.col.source {
+        width: 10%;
+        padding-top: 10px;
+        text-align: center;
+    }
+}
+
+/*移动端*/
+@media(max-width:992px) {
+    .div_visited {
+        background-color: #88d17d;
+    }
+
+    .hid_place_div, .jobHeadDiv {
+        background-color: #f7bb5e;
+    }
+
+    .jobdiv {
+        margin: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    #inp_key {
+        width: 150px;
+    }
+
+    #but {
+        width: 80px;
+    }
+
+    .sodivBut, .sodivChk {
+        float: none;
+    }
+
+    .div_a_bottom {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    div.col {
+        /*font-size: 15px;*/
+    }
+
+        div.col.clearfix {
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        div.col.positionName {
+            float: initial;
+        }
+
+        div.col.corporateName {
+            float: initial;
+            font-size: 13px;
+        }
+
+
+        div.col.workingPlace {
+            width: 25%;
+        }
+
+        div.col.releaseDate {
+            width: 35%;
+            text-align: center;
+        }
+
+        div.col.salaryType {
+            display: none;
+            width: 0%;
+        }
+
+        div.col.salary {
+            width: 30%;
+            text-align: center;
+        }
+
+        div.col.source {
+            display: none;
+            width: 25%;
+            text-align: center;
+        }
+}

@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link href="~/css/jobs.css" rel="stylesheet" />
+<div>
+    <div class="jobdiv">
+        @*搜索区域*@
+        <div class="jobHeadDiv">
+            <div class="">
+                <div class="sodiv clearfix">
+                    <div class="sodivBut">
+                        <input type="text" class="jobKey" name="">
+                        <button class="btn-query btn-default " type="button">重新搜索</button>
+                    </div>
+                    <div class="sodivChk">
+                        <input type="checkbox" class="isGetJobsByZL" checked="checked" id="chk_zhilian" value="智联">
+                        <a class="trparty_a" href="http://www.zhaopin.com" target="_blank">智联</a>
+                        <input type="checkbox" class="isGetJobsByLP" checked="checked" id="chk_liepin" value="猎聘">
+                        <a class="trparty_a" href="http://www.liepin.com" target="_blank">猎聘</a>
+                        <input type="checkbox" class="isGetJobsByQC" checked="checked" id="chk_qiancheng" value="前程">
+                        <a class="trparty_a" href="http://51job.com" target="_blank">前程</a>
+                        <input type="checkbox" class="isGetJobsByBS" checked="checked" id="chk_lashou" value="BOSS">
+                        <a class="trparty_a" href="http://www.zhipin.com" target="_blank">BOSS</a>
+                    </div>
+                </div>
+            </div>
+            @*热门地区*@
+            <div class="mytableSelect">
+                <span class="title">工作地点：</span>
+                <a class="place_a" href="javascript:;">北京</a>
+                <a class="place_a select_place_a" href="javascript:;">上海</a>
+                <a class="place_a" href="javascript:;">深圳</a>
+                <a class="place_a" href="javascript:;">广州</a>
+                <a class="place_a" href="javascript:;">杭州</a>
+                <a class="place_a" href="javascript:;">成都</a>
+                <a class="place_a" href="javascript:;">南京</a>
+                <a class="place_a" href="javascript:;">武汉</a>
+                <a class="place_a" href="javascript:;">西安</a>
+                <a class="place_a" href="javascript:;">厦门</a>
+                <a class="place_a" href="javascript:;">长沙</a>
+                <a class="place_a" href="javascript:;">苏州</a>
+                <a class="place_a temp_place_a" href="javascript:;">天津</a>
+                <a class="more_a btn-moreplace" href="javascript:;" style="">更多</a>
+                <span class="html_prace"></span>
+            </div>
+            @*其他地区*@
+            <div class="hid_place_div">
+                <div>
+                    <a class="hid_place_a" href="javascript:;">重庆</a>
+                    <a class="hid_place_a" href="javascript:;">郑州</a>
+                    <a class="hid_place_a" href="javascript:;">青岛</a>
+                    <a class="hid_place_a" href="javascript:;">合肥</a>
+                    <a class="hid_place_a" href="javascript:;">福州</a>
+                    <a class="hid_place_a" href="javascript:;">济南</a>
+                    <a class="hid_place_a" href="javascript:;">大连</a>
+                    <a class="hid_place_a" href="javascript:;">珠海</a>
+                    <a class="hid_place_a" href="javascript:;">无锡</a>
+                    <a class="hid_place_a" href="javascript:;">佛山</a>
+                    <a class="hid_place_a" href="javascript:;">东莞</a>
+                    <a class="hid_place_a" href="javascript:;">宁波</a>
+                    <a class="hid_place_a" href="javascript:;">常州</a>
+                    <a class="hid_place_a" href="javascript:;">沈阳</a>
+                    <a class="hid_place_a" href="javascript:;">石家庄</a>
+                    <a class="hid_place_a" href="javascript:;">昆明</a>
+                    <a class="hid_place_a" href="javascript:;">南昌</a>
+                    <a class="hid_place_a" href="javascript:;">南宁</a>
+                    <a class="hid_place_a" href="javascript:;">哈尔滨</a>
+                    <a class="hid_place_a" href="javascript:;">海口</a>
+                    <a class="hid_place_a" href="javascript:;">中山</a>
+                    <a class="hid_place_a" href="javascript:;">惠州</a>
+                    <a class="hid_place_a" href="javascript:;">贵阳</a>
+                    <a class="hid_place_a" href="javascript:;">长春</a>
+                    <a class="hid_place_a" href="javascript:;">太原</a>
+                    <a class="hid_place_a" href="javascript:;">嘉兴</a>
+                    <a class="hid_place_a" href="javascript:;">泰安</a>
+                    <a class="hid_place_a" href="javascript:;">昆山</a>
+                    <a class="hid_place_a" href="javascript:;">烟台</a>
+                    <a class="hid_place_a" href="javascript:;">兰州</a>
+                    <a class="hid_place_a" href="javascript:;">泉州</a>
+                </div>
+            </div>
+        </div>
+        @*招聘信息结果*@
+        <div class="dataDiv">
+
+        </div>
+        <div style="text-align: center; margin-bottom: 40px">
+            <div class="dataloadingdiv">
+                <div style="color:red">数据加载中......</div>
+                <img src="~/images/loadingAnimation.gif" />
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/jobs.js"></script>
+}

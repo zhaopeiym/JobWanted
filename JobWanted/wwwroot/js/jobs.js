@@ -218,9 +218,10 @@
 
             //点击其他区域
             $(".hid_place_a").click(function () {
+                debugger
                 $(".hid_place_div").hide();
                 $(".place_a.select_place_a").removeClass("select_place_a");
-                $(".temp_place").text($(this).text()).closest("a").addClass("select_place_a");
+                $(".temp_place_a").text($(this).text()).addClass("select_place_a");
                 reloadLoad();
             });
 

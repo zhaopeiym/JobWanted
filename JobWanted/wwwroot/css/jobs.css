@@ -245,6 +245,10 @@ div.col {
 
 /*移动端*/
 @media(max-width:992px) {
+    .hiLabel {
+        display: none;
+    }
+
     .div_visited {
         background-color: #88d17d;
     }

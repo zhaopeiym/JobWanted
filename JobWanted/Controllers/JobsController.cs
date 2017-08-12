@@ -202,7 +202,7 @@ namespace JobWanted.Controllers
                         CompanyNature = t.QuerySelectorAll(".new-compintro li")[0].TextContent,
                         CompanySize = t.QuerySelectorAll(".new-compintro li")[1].TextContent,
                         Requirement = t.QuerySelectorAll(".job-item.main-message").FirstOrDefault().TextContent.Replace("职位描述：", ""),
-                        CompanyIntroduction = t.QuerySelectorAll(".content.content-word").FirstOrDefault().TextContent,
+                        CompanyIntroduction = t.QuerySelectorAll(".job-item.main-message.noborder").FirstOrDefault().TextContent,
                     })
                     .FirstOrDefault();
                 return detailsInfo;

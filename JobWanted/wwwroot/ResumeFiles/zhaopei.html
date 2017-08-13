@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>农码一生-简历</title>
+    <style type="text/css">
+        .clearfix {
+            overflow: auto;
+            _height: 1%;
+        }
+
+        * {
+            margin: 0px;
+            box-sizing: border-box;
+        }
+
+        body {
+            line-height: 2.0;
+            background-color: #f8f8f8;
+        }
+
+        a {
+            color: #369;
+            text-decoration: none;
+        }
+
+        img.photo {
+            padding: 4px;
+            border: 1px solid #369;
+            float: right;
+            margin: 10px 20px 0 0;
+            background: #f5f5f5;
+        }
+
+        .jobContent {
+            padding-top: 40px;
+        }
+
+            .jobContent .infoBlock {
+                border: 1px solid #c4c4c4;
+                padding: 20px;
+                padding-top: 30px;
+                margin: 20px;
+            }
+
+                .jobContent .infoBlock .part {
+                    margin-bottom: 15px;
+                }
+
+                    .jobContent .infoBlock .part > div:nth-child(1) {
+                        margin-top: 10px;
+                        margin-bottom: 5px;
+                        border-left: 5px solid #0094ff;
+                        padding-left: 5px;
+                        line-height: 1.3;
+                    }
+
+                .jobContent .infoBlock .infoTitle {
+                    display: block;
+                    font-size: 20px;
+                    font-weight: 800;
+                    margin-bottom: 5px;
+                    color: #000;
+                }
+
+        .jobHead {
+            top: 0px;
+            text-align: center;
+            position: fixed;
+            background-color: #808080;
+            width: 100%;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 3px;
+        }
+
+            .jobHead a {
+                color: #fff;
+                padding: 0 15px;
+            }
+        /*pc端*/
+        @media (min-width: 992px) {
+            .jobContent {
+                margin-left: 30%;
+                margin-right: 30%;
+            }
+        }
+
+        /*移动端*/
+        @media(max-width:992px) {
+        }
+    </style>
+</head>
+<body>
+    <div class="jobHead">
+        <a href="#basicInfo">基本信息</a>
+        <a href="#evaluation">自我评价</a>
+        <a href="#jobExperience">工作经验</a>
+        <a href="#projectExperience">项目经验</a>
+        <a href="#educational ">教育背景</a>
+        <a href="#works">个人作品</a>
+    </div>
+
+    <div class="jobContent">
+
+        <!--基本信息-->
+        <div class="infoBlock" id="basicInfo">
+            <a href="#basicInfo" class="infoTitle">基本信息</a>
+            <img class="photo" src="img/photo.jpg" alt="赵培" />
+            <div>姓名：赵培</div>
+            <div>性别：男</div>
+            <div>QQ：<a href="http://wpa.qq.com/msgrd?v=3&uin=532542551&site=qq&menu=yes">532542551</a></div>
+            <div>出生年月：1990年7月</div>
+            <div>居住地址：上海-浦东</div>
+            <div>电子邮件：<a href="mailto:zhaopeiym@163.com">zhaopeiym@163.com</a></div>
+            <div>博客地址：<a target="_blank" href="http://www.cnblogs.com/zhaopei">http://zhaopei.cnblogs.com</a></div>
+        </div>
+
+        <!--自我评价-->
+        <div class="infoBlock" id="evaluation">
+            <a href="#evaluation" class="infoTitle">自我评价</a>
+            <div>
+                <p>
+                    本人对工作认真负责，有较强的团队合作精神，对软件开发和设计具有浓厚的兴趣。
+                    同时具有良好的沟通表达能力，能接受较强的工作压力并服从公司安排。
+                    6年以上DotNet相关经验，在项目中担当核心开发人员。
+                    熟悉 C#/ASP.NET MVC、Web API、EF、Code First、Linq、Lambda和ABP框架，并能独立开发WebForm和MVC框架的系统。
+                    对B/S系统有深刻了解，熟悉 HTML、JavaScript、CSS、JQuery、AJAX等技术。能够根据需要开发简单的自定义插件。
+                    数据库方面能熟练使用Oracle、SqlServer等。
+                </p> 
+                <p>
+                    平时喜欢学习和研究，周末写写博客敲敲代码。最近在学习.NET Core、MySql和Linux。
+                </p>
+            </div>
+        </div>
+
+        <!--工作经验-->
+        <div class="infoBlock" id="jobExperience">
+            <a href="#jobExperience" class="infoTitle">工作经验</a>
+            <div class="part">
+                <div><strong>2016.01</strong>：巨服(上海)信息科技有限公司</div>
+                <div><strong>职位</strong>：高级软件工程师</div>
+                <div><strong>部门</strong>：技术部</div>
+                <div>
+                    从零开始开发的FSM系统。
+                    采用ABP框架，借助于它天生的多租户特点，搭建我们的SaaS平台。
+                    经过一年时间的努力，现在已经成功上线且多个客户投入正式使用。
+                </div>
+            </div>
+            <div class="part">
+                <div><strong>2014.03</strong>：易星信息科技有限公司</div>
+                <div><strong>职位</strong>：高级软件工程师</div>
+                <div><strong>部门</strong>：技术部</div>
+                <div>
+                    初期开发公司新接的项目《非车理赔系统》资料收集环节。
+                    后期开始开发已有的系统《新车险理赔系统》，主要是做新业务的二次开发。
+                    期间做过的功能有：公估费选单、协议方案上报、替换保单信息查询的相关接口、派查勘员受阻、为人伤环节添加合理金额...等。
+                </div>
+            </div>
+            <div class="part">
+                <div><strong>2011.01</strong>：北京中合实创电力科技有限公司</div>
+                <div><strong>职位</strong>：初级软件工程师</div>
+                <div><strong>部门</strong>：技术部</div>
+                <div>
+                    主要参与新项目开发，和旧项目的新增业务开发。
+                    独立完成过多个业务需求开发到项目现场验收。
+                </div>
+            </div>
+        </div>
+
+        <!--项目经验-->
+        <div class="infoBlock" id="projectExperience">
+            <a href="#projectExperience" class="infoTitle">项目经验</a>
+            <div class="part">
+                <div>2016.01：FSM(极服务)</div>
+                <div>
+                    <strong>项目描述</strong>：FSM系统主要是一个售后服务管理系统。
+                    管理层，通过该系统可以形象的知道每个工程师的工作情况、进度、客户满意度。
+                    还可以统计出经常出现的故障、哪些是容易损坏的零件。 通过主动服务来提高企业的信誉，进而扩大产品的市场占有率。
+                    对于工程师，他们告别了纸质工单时代了不便。
+                    直接通过手机端查询维修点，拍照上传工单。接收、转派任务等。不用当心信息丢失，真正进入“无纸”时代。
+                </div>
+                <div>
+                    <strong>责任描述</strong>：主要负责核心开发工作。
+                    从这个系统的诞生，一直走到系统的正式上线。到现持续开发新发掘的需求。
+                    从前端页面的开发到后代的业务逻辑在到App的接口编写都有深入的参与或负责。
+                </div>
+            </div>
+
+            <div class="part">
+                <div><strong>2014.03</strong>：车险理赔系统</div>
+                <div>
+                    <strong>项目描述</strong>：
+                    车险理赔系统主要的环节有：电话中心、查勘中心、人伤管理中心、内勤中心、理算核赔中心、综合业务、综合业务等。
+                    主要任务有：本车车损、三者车损、本车物损、三者物损、本车人伤、三者人伤、全车盗抢等。
+                </div>
+                <div>
+                    <strong>责任描述</strong>：
+                    主要是做新业务的二次开发。
+                    期间做过的功能：公估费选单、协议方案上报、替换保单信息查询的相关接口、派查勘员受阻、为人伤环节添加合理金额...等。
+                </div>
+            </div>
+
+            <div class="part">
+                <div><strong>2013.10</strong>：上海会展培训网</div>
+                <div>
+                    <strong>项目描述</strong>：	本网站针对的人群是初入会展行业的职场新人以及高校中即将面临就业的高年级学生。
+                    根据会展行业的专业不同，课程细分为“会展管理”、“展示设计”和“会展活动策划”。
+                    学员可根据自己的专业和兴趣自由选择。
+                </div>
+                <div>
+                    <strong>责任描述</strong>：
+                    本项目，由我和同事两个人开发完成。 其中有一半以上由我个人开发。
+                    如：登录、权限控制、视频播放、播放记录和播放统计计算。还有后台的视频上传、分页、排序等。
+                </div>
+            </div>
+
+            <div class="part">
+                <div><strong>2013.03</strong>：二维Gis </div>
+                <div>
+                    <strong>项目描述</strong>：
+                    通过读取集成项目写入的数据，在地图上做数据展示和定位。
+                    通过放大地图到设备进行设备的渲染。
+                    主要业务功能:设备查询定位，FID查询定位，雷击区域，车辆管理，VIP用户，营业厅，快速复电，大面积停电，停电监控...等。
+                </div>
+                <div>
+                    <strong>责任描述</strong>：
+                    主要负责VIP用户展示、快速复电、大面积和停电监控。
+                    从数据库的存储过程到前台的展示。
+                    然后现场与客户沟通，到合作公司集成系统的联调到验收。
+                </div>
+            </div>
+
+            <div class="part">
+                <div><strong>2011.02</strong>：WebGis</div>
+                <div>
+                    <strong>项目描述</strong>：
+                    该项目使用Flex和Oracle开发的业务处理相关地图操作和相关效果。
+                    主要功能：地图基本操作，空间查询，台账数，用电调度，海量，拓扑追踪。
+                </div>
+                <div>
+                    <strong>责任描述</strong>：
+                    负责前台Flex开发。主要业务功能有用电调度，设备查询和地图基本操作。
+                    从数据库的查询到前台的效果，数据的分类展示的整个流程。
+                    沟通项目组开发界面的风格统一，整理公用类库。
+                </div>
+            </div>
+        </div>
+
+        <!--教育背景-->
+        <div class="infoBlock" id="educational ">
+            <a href="#educational " class="infoTitle">教育背景</a>
+            <div>2010.01--2012.07:吉林师范大学</div>
+        </div>
+
+        <!--个人作品-->
+        <div class="infoBlock" id="works">
+            <a href="#works" class="infoTitle">个人作品</a>
+            <div class="part">
+                <div><strong>一、找工作</strong></div>
+                <div>1、兼容移动端和PC端</div>
+                <div>2、使用阿里云 + .NET Core1.1 + CentOS7.3 + nginx1.12.1</div>
+                <div>3、演示地址：<a target="_blank" href="http://job.haojima.net">http://job.haojima.net</a></div>
+                <div>4、源码地址：<a target="_blank" href="https://github.com/zhaopeiym/JobWanted">https://github.com/zhaopeiym/JobWanted</a></div>
+            </div>
+            <div class="part">
+                <div><strong>二、聊天室</strong></div>
+                <div>1、兼容移动端和PC端</div>
+                <div>2、使用阿里云 + .NET Core1.1 + WebSocket + CentOS7.3 + nginx1.12.1</div>
+                <div>3、演示地址：<a target="_blank" href="http://socket.haojima.net/">http://socket.haojima.net/</a></div>
+                <div>4、源码地址：<a target="_blank" href="https://github.com/zhaopeiym/ChatRoom">https://github.com/zhaopeiym/ChatRoom</a></div>
+            </div>
+            <div class="part">
+                <div><strong>三、博客系统</strong></div>
+                <div>1、嗨-博客，是一个ASP.NET MVC版本的开源博客。</div>
+                <div>2、兼容移动端和PC端</div>
+                <div>3、同时提供了webapi，任何终端都可以基于api功能做博客数据的展示和操作。</div>
+                <div>4、随心所欲定制自己的样式效果，提供给了javascript脚本权限。</div>
+                <div>5、开源地址：<a target="_blank" href="https://git.oschina.net/zhaopeiym/Hi-Blogs">https://git.oschina.net/zhaopeiym/Hi-Blogs</a>【荣誉：码云“推荐项目”】</div>
+            </div>
+            <div class="part">
+                <div><strong>四、博客和源码</strong></div>
+                <div>1、博客地址：<a target="_blank" href="http://www.cnblogs.com/zhaopei">http://zhaopei.cnblogs.com</a> 【荣誉：博客园“推荐博客”前20名】</div>
+                <div>2、GitHub地址：<a target="_blank" href="https://github.com/zhaopeiym">https://github.com/zhaopeiym</a> </div>
+                <div>3、码云地址：<a target="_blank" href="https://git.oschina.net/zhaopeiym">https://git.oschina.net/zhaopeiym</a> </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

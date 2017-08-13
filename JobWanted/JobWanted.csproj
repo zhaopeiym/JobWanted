@@ -15,6 +15,10 @@
     <Content Include="wwwroot\images\loadingAnimation.gif" />
     <Content Include="wwwroot\images\留言.png" />
     <Content Include="wwwroot\js\jobs.js" />
+    <Content Include="wwwroot\ResumeFiles\img\photo.jpg" />
+    <Content Include="wwwroot\ResumeFiles\job.html" />
+    <Content Include="wwwroot\ResumeFiles\photo.jpg" />
+    <Content Include="wwwroot\ResumeFiles\zhaopei.html" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.9.9" />

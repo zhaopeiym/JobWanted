@@ -100,8 +100,8 @@
                             tempHtml += "&nbsp&nbsp|&nbsp&nbsp" + (sData.education || "") + "";
                             tempHtml += "&nbsp&nbsp|&nbsp&nbsp" + (sData.companyNature || "") + "";
                             tempHtml += "&nbsp&nbsp|&nbsp&nbsp" + (sData.companySize || "") + "</div>";
-                            tempHtml += "<div class='detailsBlock'><div class='detailsBlock-title'>职位描述：</div>" + sData.requirement.trim() + "</div>";
-                            tempHtml += "<div class='detailsBlock'><div class='detailsBlock-title'>公司简介：</div>" + sData.companyIntroduction.trim() + "</div>";
+                            tempHtml += "<div class='detailsBlock'><div class='detailsBlock-title'>职位描述：</div>" + (sData.requirement || "").trim() + "</div>";
+                            tempHtml += "<div class='detailsBlock'><div class='detailsBlock-title'>公司简介：</div>" + (sData.companyIntroduction || "").trim() + "</div>";
                             $(ele).html(tempHtml);
                         }
                     }

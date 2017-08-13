@@ -245,6 +245,11 @@ div.col {
 
 /*移动端*/
 @media(max-width:992px) {
+
+    .jobKey {
+        width: 200px;
+    }
+
     .hiLabel {
         display: none;
     }

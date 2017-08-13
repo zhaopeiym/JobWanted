@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Content Include="wwwroot\css\jobs.css" />
+    <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\images\github.jpg" />
     <Content Include="wwwroot\images\loadingAnimation.gif" />
     <Content Include="wwwroot\images\留言.png" />

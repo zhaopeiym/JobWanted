@@ -239,16 +239,16 @@ namespace JobWanted.Controllers
                 var htmlString = await http.GetStringAsync(url);
                 HtmlParser htmlParser = new HtmlParser();
                 var detailsInfo = htmlParser.Parse(htmlString)
-                    .QuerySelectorAll(".terminalpage")
-                    .Where(t => t.QuerySelectorAll(".terminalpage-left .terminal-ul li").FirstOrDefault() != null)
+                    .QuerySelectorAll("#main")
+                    .Where(t => t.QuerySelectorAll(".job-banner .info-primary p").FirstOrDefault() != null)
                     .Select(t => new DetailsInfo()
                     {
-                        Experience = t.QuerySelectorAll(".terminalpage-left .terminal-ul li")[4].TextContent,
-                        Education = t.QuerySelectorAll(".terminalpage-left .terminal-ul li")[5].TextContent,
-                        CompanyNature = t.QuerySelectorAll(".terminalpage-right .terminal-company li")[1].TextContent,
-                        CompanySize = t.QuerySelectorAll(".terminalpage-right .terminal-company li")[0].TextContent,
-                        Requirement = t.QuerySelectorAll(".tab-cont-box .tab-inner-cont")[0].TextContent.Replace("职位描述：", ""),
-                        CompanyIntroduction = t.QuerySelectorAll(".tab-cont-box .tab-inner-cont")[1].TextContent,
+                        Experience = t.QuerySelectorAll(".job-banner .info-primary p").FirstOrDefault().TextContent,
+                        //Education = t.QuerySelectorAll(".terminalpage-left .terminal-ul li")[5].TextContent,
+                        CompanyNature = t.QuerySelectorAll(".job-banner .info-company p").FirstOrDefault().TextContent,
+                        //CompanySize = t.QuerySelectorAll(".terminalpage-right .terminal-company li")[0].TextContent,
+                        Requirement = t.QuerySelectorAll(".detail-content div.text").FirstOrDefault().TextContent.Replace("职位描述：", ""),
+                        //CompanyIntroduction = t.QuerySelectorAll(".tab-cont-box .tab-inner-cont")[1].TextContent,
                     })
                     .FirstOrDefault();
                 return detailsInfo;

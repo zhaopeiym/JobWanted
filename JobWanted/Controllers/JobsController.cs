@@ -4,15 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Text;
-using System.Net;
-using System.IO;
-using AngleSharp;
 using AngleSharp.Parser.Html;
 using System;
-using System.Threading;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 /*

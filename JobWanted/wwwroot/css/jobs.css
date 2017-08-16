@@ -197,49 +197,75 @@ div.col {
     float: left;
 }
 
+.hiLabel {
+    position: fixed;
+    top: 50px;
+    left: 100px;
+    max-width: 200px;
+    max-height: 400px;
+}
+
+div .col.clearfix {
+    width: 35%;
+}
+
+div.col.positionName {
+    float: initial;
+}
+
+div.col.corporateName {
+    float: initial;
+    padding-top: 5px;
+    font-size: 14px;
+}
+
+div.col.workingPlace {
+    width: 10%;
+    padding-top: 10px;
+    text-align: center;
+}
+
+div.col.releaseDate {
+    width: 20%;
+    padding-top: 10px;
+    text-align: center;
+}
+
+div.col.salaryType {
+    width: 10%;
+    padding-top: 10px;
+}
+
+div.col.salary {
+    width: 15%;
+    padding-top: 10px;
+    text-align: center;
+}
+
+div.col.source {
+    width: 10%;
+    padding-top: 10px;
+    text-align: center;
+}
+
 /*pc端*/
-@media (min-width: 992px) {
-    div.col.clearfix {
-        width: 35%;
-    }
+@media (min-width: 1366px) {
+}
 
-    div.col.positionName {
-        float: initial;
+/*笔记本*/
+@media(max-width:1366px) {
+    .hiLabel {
+        left: 50px;
     }
+}
 
-    div.col.corporateName {
-        float: initial;
-        padding-top: 5px;
-        font-size: 14px;
+/*ipad pro*/
+@media(max-width:1024px) {
+    .hiLabel {
+        left: 5px;
     }
-
-    div.col.workingPlace {
-        width: 10%;
-        padding-top: 10px;
-        text-align: center;
-    }
-
-    div.col.releaseDate {
-        width: 20%;
-        padding-top: 10px;
-        text-align: center;
-    }
-
-    div.col.salaryType {
-        width: 10%;
-        padding-top: 10px;
-    }
-
-    div.col.salary {
-        width: 15%;
-        padding-top: 10px;
-        text-align: center;
-    }
-
-    div.col.source {
-        width: 10%;
-        padding-top: 10px;
-        text-align: center;
+    .sodivBut, .sodivChk {
+        float: none;
     }
 }
 

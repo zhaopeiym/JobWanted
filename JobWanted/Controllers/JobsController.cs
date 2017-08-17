@@ -7,6 +7,7 @@ using System.Text;
 using AngleSharp.Parser.Html;
 using System;
 using System.Net.Http.Headers;
+using Talk.Cache;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 /*
@@ -19,7 +20,7 @@ namespace JobWanted.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class JobsController : Controller
-    {        
+    {
         /// <summary>
         /// 获取智联信息(简要信息)
         /// </summary>
@@ -28,7 +29,16 @@ namespace JobWanted.Controllers
         /// <param name="index"></param>
         /// <returns></returns>
         public async Task<List<JobInfo>> GetJobsByZL(string city, string key, string index)
-        {           
+        {
+            var keyString = city + key + index;
+            var time = DateTime.Now.AddHours(1) - DateTime.Now;
+            EasyCache<List<JobInfo>> str = new EasyCache<List<JobInfo>>(keyString, time);
+            var data = str.GetData();
+            if (data != null)
+            {
+                return data.Data;
+            }
+
             var cityCode = CodesData.GetCityCode(RecruitEnum.智联招聘, city);
             string url = string.Format("http://sou.zhaopin.com/jobs/searchresult.ashx?jl={0}&kw={1}&p={2}", cityCode, key, index);
             using (HttpClient http = new HttpClient())
@@ -48,6 +58,8 @@ namespace JobWanted.Controllers
                         DetailsUrl = t.QuerySelectorAll(".zwmc a").FirstOrDefault().Attributes.FirstOrDefault(f => f.Name == "href").Value,
                     })
                     .ToList();
+
+                str.AddData(jobInfos);
                 return jobInfos;
             }
         }
@@ -152,6 +164,19 @@ namespace JobWanted.Controllers
         /// <returns></returns>
         public async Task<List<JobInfo>> GetJobsByBS(string city, string key, string index)
         {
+            var keyString = city + key + index;
+            var time = DateTime.Now.AddMinutes(3) - DateTime.Now;
+            EasyCache<List<JobInfo>> str = new EasyCache<List<JobInfo>>(keyString, time);
+            var data = str.GetData();
+            if (data != null)
+            {
+                data.Data.Insert(0, new JobInfo()
+                {
+                    CorporateName = "缓存数据"
+                });
+                return data.Data;
+            }
+
             var cityCode = CodesData.GetCityCode(RecruitEnum.BOSS, city);
             string url = string.Format("http://www.zhipin.com/c{0}/h_{0}/?query={1}&page={2}", cityCode, key, index);
             using (HttpClient http = new HttpClient())
@@ -171,6 +196,7 @@ namespace JobWanted.Controllers
                         DetailsUrl = "http://www.zhipin.com" + t.QuerySelectorAll("a").FirstOrDefault().Attributes.FirstOrDefault(f => f.Name == "href").Value,
                     })
                     .ToList();
+                str.AddData(jobInfos);
                 return jobInfos;
             }
         }

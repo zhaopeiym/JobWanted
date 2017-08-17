@@ -8,6 +8,7 @@ using AngleSharp.Parser.Html;
 using System;
 using System.Net.Http.Headers;
 using Talk.Cache;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 /*
@@ -28,16 +29,12 @@ namespace JobWanted.Controllers
         /// <param name="key"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public async Task<List<JobInfo>> GetJobsByZL(string city, string key, string index)
+        public async Task<List<JobInfo>> GetJobsByZL(string city, string key, int index)
         {
-            var keyString = city + key + index;
-            var time = DateTime.Now.AddHours(1) - DateTime.Now;
-            EasyCache<List<JobInfo>> str = new EasyCache<List<JobInfo>>(keyString, time);
-            var data = str.GetData();
+            var cache = GetCacheObject();
+            var data = cache.GetData();
             if (data != null)
-            {
                 return data.Data;
-            }
 
             var cityCode = CodesData.GetCityCode(RecruitEnum.智联招聘, city);
             string url = string.Format("http://sou.zhaopin.com/jobs/searchresult.ashx?jl={0}&kw={1}&p={2}", cityCode, key, index);
@@ -59,7 +56,7 @@ namespace JobWanted.Controllers
                     })
                     .ToList();
 
-                str.AddData(jobInfos);
+                cache.AddData(jobInfos);
                 return jobInfos;
             }
         }
@@ -71,8 +68,14 @@ namespace JobWanted.Controllers
         /// <param name="key"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public async Task<List<JobInfo>> GetJobsByLP(string city, string key, string index)
+        public async Task<List<JobInfo>> GetJobsByLP(string city, string key, int index)
         {
+
+            var cache = GetCacheObject();
+            var data = cache.GetData();
+            if (data != null)
+                return data.Data;
+
             var cityCode = CodesData.GetCityCode(RecruitEnum.猎聘网, city);
             string url = string.Format("http://www.liepin.com/zhaopin/?key={0}&dqs={1}&curPage={2}", key, cityCode, index);
             using (HttpClient http = new HttpClient())
@@ -92,6 +95,8 @@ namespace JobWanted.Controllers
                         DetailsUrl = t.QuerySelectorAll(".job-info h3 a").FirstOrDefault().Attributes.FirstOrDefault(f => f.Name == "href").Value,
                     })
                     .ToList();
+
+                cache.AddData(jobInfos);
                 return jobInfos;
             }
         }
@@ -103,8 +108,13 @@ namespace JobWanted.Controllers
         /// <param name="key"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public async Task<List<JobInfo>> GetJobsByQC(string city, string key, string index)
+        public async Task<List<JobInfo>> GetJobsByQC(string city, string key, int index)
         {
+            var cache = GetCacheObject();
+            var data = cache.GetData();
+            if (data != null)
+                return data.Data;
+
             var cityCode = CodesData.GetCityCode(RecruitEnum.前程无忧, city);
             string url = string.Format("http://search.51job.com/jobsearch/search_result.php?jobarea={0}&keyword={1}&curr_page={2}", cityCode, key, index);
             using (HttpClient http = new HttpClient())
@@ -126,32 +136,8 @@ namespace JobWanted.Controllers
                         DetailsUrl = t.QuerySelectorAll(".t1 span a").FirstOrDefault().Attributes.FirstOrDefault(f => f.Name == "href").Value,
                     })
                     .ToList();
+                cache.AddData(jobInfos);
                 return jobInfos;
-            }
-        }
-
-        /// <summary>
-        /// 获取拉勾信息(简要信息)
-        /// </summary>
-        /// <param name="city"></param>
-        /// <param name="key"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public async Task<List<JobInfo>> GetJobsByLG(string city, string key, string index)
-        {
-            //不知道为什么抓不到数据？ https 的原因？？
-            StringContent fromurlcontent = new StringContent("first=false&pn=" + index + "&kd=" + key);
-            fromurlcontent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-            fromurlcontent.Headers.Add("X-Requested-With", "XMLHttpRequest");
-
-            var url = string.Format("https://www.lagou.com/jobs/positionAjax.json?city={0}&needAddtionalResult=false&isSchoolJob=0", city);
-            using (HttpClient http = new HttpClient())
-            {
-                //MultipartFormDataContent MediaTypeHeaderValue  
-                var responseMsg = await http.PostAsync(new Uri(url), fromurlcontent);
-                var bytes = await responseMsg.Content.ReadAsByteArrayAsync();
-                var html = Encoding.UTF8.GetString(bytes);
-                return null;
             }
         }
 
@@ -162,20 +148,12 @@ namespace JobWanted.Controllers
         /// <param name="key"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public async Task<List<JobInfo>> GetJobsByBS(string city, string key, string index)
+        public async Task<List<JobInfo>> GetJobsByBS(string city, string key, int index)
         {
-            var keyString = city + key + index;
-            var time = DateTime.Now.AddMinutes(3) - DateTime.Now;
-            EasyCache<List<JobInfo>> str = new EasyCache<List<JobInfo>>(keyString, time);
-            var data = str.GetData();
+            var cache = GetCacheObject();
+            var data = cache.GetData();
             if (data != null)
-            {
-                data.Data.Insert(0, new JobInfo()
-                {
-                    CorporateName = "缓存数据"
-                });
                 return data.Data;
-            }
 
             var cityCode = CodesData.GetCityCode(RecruitEnum.BOSS, city);
             string url = string.Format("http://www.zhipin.com/c{0}/h_{0}/?query={1}&page={2}", cityCode, key, index);
@@ -196,8 +174,34 @@ namespace JobWanted.Controllers
                         DetailsUrl = "http://www.zhipin.com" + t.QuerySelectorAll("a").FirstOrDefault().Attributes.FirstOrDefault(f => f.Name == "href").Value,
                     })
                     .ToList();
-                str.AddData(jobInfos);
+
+                cache.AddData(jobInfos);//添加缓存
                 return jobInfos;
+            }
+        }
+
+        /// <summary>
+        /// 获取拉勾信息(简要信息)
+        /// </summary>
+        /// <param name="city"></param>
+        /// <param name="key"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public async Task<List<JobInfo>> GetJobsByLG(string city, string key, int index)
+        {
+            //不知道为什么抓不到数据？ https 的原因？？
+            StringContent fromurlcontent = new StringContent("first=false&pn=" + index + "&kd=" + key);
+            fromurlcontent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            fromurlcontent.Headers.Add("X-Requested-With", "XMLHttpRequest");
+
+            var url = string.Format("https://www.lagou.com/jobs/positionAjax.json?city={0}&needAddtionalResult=false&isSchoolJob=0", city);
+            using (HttpClient http = new HttpClient())
+            {
+                //MultipartFormDataContent MediaTypeHeaderValue  
+                var responseMsg = await http.PostAsync(new Uri(url), fromurlcontent);
+                var bytes = await responseMsg.Content.ReadAsByteArrayAsync();
+                var html = Encoding.UTF8.GetString(bytes);
+                return null;
             }
         }
 
@@ -229,6 +233,11 @@ namespace JobWanted.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取智联详细信息
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public async Task<DetailsInfo> GetDetailsInfoByZL(string url)
         {
             using (HttpClient http = new HttpClient())
@@ -252,6 +261,11 @@ namespace JobWanted.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取boss详细信息
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public async Task<DetailsInfo> GetDetailsInfoByBS(string url)
         {
             using (HttpClient http = new HttpClient())
@@ -274,6 +288,12 @@ namespace JobWanted.Controllers
                 return detailsInfo;
             }
         }
+
+        /// <summary>
+        /// 获取前程详细信息
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
 
         public async Task<DetailsInfo> GetDetailsInfoByQC(string url)
         {
@@ -298,6 +318,21 @@ namespace JobWanted.Controllers
                     .FirstOrDefault();
                 return detailsInfo;
             }
+        }
+
+        /// <summary>
+        /// 获取缓存对象
+        /// </summary>
+        /// <param name="city"></param>
+        /// <param name="key"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public EasyCache<List<JobInfo>> GetCacheObject()
+        {
+            var key = Request.Path.Value + Request.QueryString.Value;
+            var time = DateTime.Now.AddMinutes(10) - DateTime.Now;//缓存10分钟
+            EasyCache<List<JobInfo>> obj = new EasyCache<List<JobInfo>>(key, time);
+            return obj;
         }
     }
 }

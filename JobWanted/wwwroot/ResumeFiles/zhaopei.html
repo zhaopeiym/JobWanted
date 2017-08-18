@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>农码一生-简历</title>
     <style type="text/css">
@@ -44,6 +44,7 @@
                 padding: 20px;
                 padding-top: 30px;
                 margin: 20px;
+                word-wrap: break-word; /*自动换行*/
             }
 
                 .jobContent .infoBlock .part {
@@ -72,14 +73,14 @@
             position: fixed;
             background-color: #808080;
             width: 100%;
-            font-size: 17px;
-            font-weight: bold;
             padding: 3px;
         }
 
             .jobHead a {
                 color: #fff;
                 padding: 0 15px;
+                font-size: 17px;
+                font-weight: bold;
             }
         /*pc端*/
         @media (min-width: 992px) {
@@ -87,21 +88,49 @@
                 margin-left: 30%;
                 margin-right: 30%;
             }
+
+            .jobHead.phone {
+                display: none;
+            }
         }
 
         /*移动端*/
         @media(max-width:992px) {
+            .jobHead.pc {
+                display: none;
+            }
+
+            img.photo {
+                padding: 0px;
+                margin: 0;
+            }
+            body {
+                line-height: 1.5; 
+            }
         }
     </style>
 </head>
 <body>
-    <div class="jobHead">
+    <div class="jobHead pc">
         <a href="#basicInfo">基本信息</a>
         <a href="#evaluation">自我评价</a>
         <a href="#jobExperience">工作经验</a>
         <a href="#projectExperience">项目经验</a>
         <a href="#educational ">教育背景</a>
         <a href="#works">个人作品</a>
+    </div>
+
+    <div class="jobHead phone">
+        <div>
+            <a href="#basicInfo">基本信息</a>
+            <a href="#evaluation">自我评价</a>
+            <a href="#jobExperience">工作经验</a>
+        </div>
+        <div>
+            <a href="#projectExperience">项目经验</a>
+            <a href="#educational ">教育背景</a>
+            <a href="#works">个人作品</a>
+        </div>
     </div>
 
     <div class="jobContent">
@@ -112,7 +141,10 @@
             <img class="photo" src="img/photo.jpg" alt="赵培" />
             <div>姓名：赵培</div>
             <div>性别：男</div>
-            <div>QQ：<a href="http://wpa.qq.com/msgrd?v=3&uin=532542551&site=qq&menu=yes">532542551</a></div>
+            <div>
+                QQ：<a href="http://wpa.qq.com/msgrd?v=3&uin=532542551&site=qq&menu=yes">532542551</a>
+                <span style="color:red;font-size:12px;margin-left:5px">(注明:招聘)</span>
+            </div>
             <div>出生年月：1990年7月</div>
             <div>居住地址：上海-浦东</div>
             <div>电子邮件：<a href="mailto:zhaopeiym@163.com">zhaopeiym@163.com</a></div>
@@ -130,7 +162,7 @@
                     熟悉 C#/ASP.NET MVC、Web API、EF、Code First、Linq、Lambda和ABP框架，并能独立开发WebForm和MVC框架的系统。
                     对B/S系统有深刻了解，熟悉 HTML、JavaScript、CSS、JQuery、AJAX等技术。能够根据需要开发简单的自定义插件。
                     数据库方面能熟练使用Oracle、SqlServer等。
-                </p> 
+                </p>
                 <p>
                     平时喜欢学习和研究，周末写写博客敲敲代码。最近在学习.NET Core、MySql和Linux。
                 </p>

@@ -177,8 +177,7 @@
             var method = this.method;
             //自动加载信息
             var autoLoad = function () {
-                var type = "";
-                _pageData.pageIndex++;
+                var type = "";             
                 if (_pageData.isGetJobsByZL) {
                     type += "0-";
                     method.loadJobsInfo("GetJobsByZL", _pageData.city, _pageData.key, _pageData.pageIndex);
@@ -292,6 +291,7 @@
                 var scrollTop = $(window).scrollTop();
                 var top = $(document).height() - $(window).height() - scrollTop;
                 if (top == 0) {
+                    _pageData.pageIndex++;
                     autoLoad();
                 }
             });

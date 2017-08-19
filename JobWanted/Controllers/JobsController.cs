@@ -151,7 +151,7 @@ namespace JobWanted.Controllers
         /// <returns></returns>
         public async Task<List<JobInfo>> GetJobsByBS(string city, string key, int index)
         {
-            var cache = GetCacheObject();
+            var cache = GetCacheObject(20);
             var data = cache.GetData();
             if (data != null)
                 return data.Data;
@@ -190,7 +190,7 @@ namespace JobWanted.Controllers
         /// <returns></returns>
         public async Task<List<JobInfo>> GetJobsByLG(string city, string key, int index)
         {
-            var cache = GetCacheObject();
+            var cache = GetCacheObject(20);
             var data = cache.GetData();
             if (data != null)
                 return data.Data;
@@ -364,8 +364,8 @@ namespace JobWanted.Controllers
                     {
                         Experience = t.QuerySelectorAll(".job_request p").FirstOrDefault()?.TextContent,
                         //Education = t.QuerySelectorAll(".terminalpage-left .terminal-ul li")[5].TextContent,
-                        CompanyNature = t.QuerySelectorAll(".job_company .c_feature li")[0]?.TextContent,
-                        CompanySize = t.QuerySelectorAll(".job_company .c_feature li")[2]?.TextContent,
+                        CompanyNature = t.QuerySelectorAll(".job_company .c_feature li")?.Length <= 0 ? "" : t.QuerySelectorAll(".job_company .c_feature li")[0]?.TextContent,
+                        CompanySize = t.QuerySelectorAll(".job_company .c_feature li")?.Length <= 2 ? "" : t.QuerySelectorAll(".job_company .c_feature li")[2]?.TextContent,
                         Requirement = t.QuerySelectorAll(".job_bt div").FirstOrDefault()?.TextContent.Replace("职位描述：", ""),
                         //CompanyIntroduction = t.QuerySelectorAll(".tab-cont-box .tab-inner-cont")[1].TextContent,
                     })
@@ -381,10 +381,10 @@ namespace JobWanted.Controllers
         /// <param name="key"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public EasyCache<List<JobInfo>> GetCacheObject()
+        public EasyCache<List<JobInfo>> GetCacheObject(int? minutes = null)
         {
             var key = Request.Path.Value + Request.QueryString.Value;
-            var time = DateTime.Now.AddMinutes(10) - DateTime.Now;//缓存10分钟
+            var time = DateTime.Now.AddMinutes(minutes ?? 10) - DateTime.Now;//缓存10分钟
             EasyCache<List<JobInfo>> obj = new EasyCache<List<JobInfo>>(key, time);
             return obj;
         }

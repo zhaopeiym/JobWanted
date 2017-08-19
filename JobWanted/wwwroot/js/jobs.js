@@ -35,6 +35,9 @@
                     case "GetJobsByBS":
                         source = "BOSS";
                         break;
+                    case "GetJobsByLG":
+                        source = "拉勾";
+                        break;
                 }
 
                 $.ajax({
@@ -46,7 +49,7 @@
                             tempHtml += ' <div class="jobinfo clearfix">\
                                         <div class="col clearfix">\
                                             <div class="col positionName">\
-                                                <a class="info_url" href="'+ job.detailsUrl + '" target="_blank">' + job.positionName + '</a>\
+                                                <a onclick="event.stopPropagation();" class="info_url" href="'+ job.detailsUrl + '" target="_blank">' + job.positionName + '</a>\
                                             </div> \
                                             <div class="col corporateName">'+ job.corporateName + '</div>\
                                         </div>\
@@ -63,13 +66,14 @@
             },
             //重置信息
             resetInfo: function () {
-                _pageData.pageIndex = 0;
+                _pageData.pageIndex = this.queryString("index") || 0;
                 _pageData.city = $(".place_a.select_place_a").text();
                 _pageData.key = $(".jobKey").val();
                 _pageData.isGetJobsByZL = $(".isGetJobsByZL").prop("checked");
                 _pageData.isGetJobsByLP = $(".isGetJobsByLP").prop("checked");
                 _pageData.isGetJobsByQC = $(".isGetJobsByQC").prop("checked");
                 _pageData.isGetJobsByBS = $(".isGetJobsByBS").prop("checked");
+                _pageData.isGetJobsByLG = $(".isGetJobsByLG").prop("checked");
                 $(".dataDiv").html("");
             },
             //加载详细信息
@@ -88,12 +92,14 @@
                     case "BOSS":
                         urlType = "GetDetailsInfoByBS";
                         break;
+                    case "拉勾":
+                        urlType = "GetDetailsInfoByLG";
+                        break;
                 }
 
                 $.ajax({
                     url: "/api/jobs/" + urlType + "?url=" + url,
                     success: function (sData) {
-
                         if (sData) {
                             var tempHtml = "";
                             tempHtml += "<div class='detailsSketch detailsBlock'>" + (sData.experience || "");
@@ -101,7 +107,8 @@
                             tempHtml += "&nbsp&nbsp|&nbsp&nbsp" + (sData.companyNature || "") + "";
                             tempHtml += "&nbsp&nbsp|&nbsp&nbsp" + (sData.companySize || "") + "</div>";
                             tempHtml += "<div class='detailsBlock'><div class='detailsBlock-title'>职位描述：</div>" + (sData.requirement || "").trim() + "</div>";
-                            tempHtml += "<div class='detailsBlock'><div class='detailsBlock-title'>公司简介：</div>" + (sData.companyIntroduction || "").trim() + "</div>";
+                            if (sData.companyIntroduction)
+                                tempHtml += "<div class='detailsBlock'><div class='detailsBlock-title'>公司简介：</div>" + (sData.companyIntroduction || "").trim() + "</div>";
                             $(ele).html(tempHtml);
                         }
                     }
@@ -125,46 +132,42 @@
         pageInit: function () {
 
             var method = this.method;
-            var jobTypes = "0-1-2-3-";
-            //if (event && event.clientX) //用来判断是否是鼠标点击触发
-
-            _pageData.city = method.queryString("city") || _pageData.city;
-            _pageData.key = method.queryString("key") || _pageData.key;
-            _pageData.pageIndex = method.queryString("index") || _pageData.pageIndex;
+            var jobTypes = "0-1-2-3-4-";//默认初始全部    
+            //根据url中的类型
             var types = method.queryString("type") && method.queryString("type").split('-') || jobTypes.split("-");
             jobTypes = types.join('-');
-
-            $(":checkbox").prop("checked", false);
-
-            $.each(types, function (i, e) {
-                if (e === "0") {
-                    $(".isGetJobsByZL").prop("checked", true);
-                    method.loadJobsInfo("GetJobsByZL", _pageData.city, _pageData.key, _pageData.pageIndex);
-                }
-                if (e === "1") {
-                    $(".isGetJobsByQC").prop("checked", true);
-                    method.loadJobsInfo("GetJobsByQC", _pageData.city, _pageData.key, _pageData.pageIndex);
-                }
-                if (e === "2") {
-                    $(".isGetJobsByLP").prop("checked", true);
-                    method.loadJobsInfo("GetJobsByLP", _pageData.city, _pageData.key, _pageData.pageIndex);
-                }
-                if (e === "3") {
-                    $(".isGetJobsByBS").prop("checked", true);
-                    method.loadJobsInfo("GetJobsByBS", _pageData.city, _pageData.key, _pageData.pageIndex);
-                }
-            });
-
-            $(".jobKey").val(_pageData.key);
+            $(".jobKey").val(method.queryString("key") || _pageData.key);//根据URL中的关键字
+            ////根据URL中的区域绑定
             $(".place_a.select_place_a").removeClass("select_place_a");
             $(".place_a").each(function (i, e) {
-                if ($(this).text() === decodeURI(_pageData.city)) {
+                if ($(this).text() === decodeURI(method.queryString("city") || _pageData.city)) {
                     $(this).addClass("select_place_a");
                 }
             })
+            //如果是更多区域
             if (!$(".place_a.select_place_a").length) {
-                $(".temp_place_a").text(decodeURI(_pageData.city)).addClass("select_place_a");
+                $(".temp_place_a").text(decodeURI(method.queryString("city") || _pageData.city)).addClass("select_place_a");
             }
+            $(":checkbox").prop("checked", false);
+            types.indexOf("0") >= 0 && $(".isGetJobsByZL").prop("checked", true);
+            types.indexOf("1") >= 0 && $(".isGetJobsByQC").prop("checked", true);
+            types.indexOf("2") >= 0 && $(".isGetJobsByLP").prop("checked", true);
+            types.indexOf("3") >= 0 && $(".isGetJobsByBS").prop("checked", true);
+            types.indexOf("4") >= 0 && $(".isGetJobsByLG").prop("checked", true);
+            method.resetInfo();
+
+            $.each(types, function (i, e) {
+                if (e === "0")
+                    method.loadJobsInfo("GetJobsByZL", _pageData.city, _pageData.key, _pageData.pageIndex);
+                if (e === "1")
+                    method.loadJobsInfo("GetJobsByQC", _pageData.city, _pageData.key, _pageData.pageIndex);
+                if (e === "2")
+                    method.loadJobsInfo("GetJobsByLP", _pageData.city, _pageData.key, _pageData.pageIndex);
+                if (e === "3")
+                    method.loadJobsInfo("GetJobsByBS", _pageData.city, _pageData.key, _pageData.pageIndex);
+                if (e === "4")
+                    method.loadJobsInfo("GetJobsByLG", _pageData.city, _pageData.key, _pageData.pageIndex);
+            });
 
             history.pushState(null, null, location.href.split("?")[0] + "?type=" + jobTypes + "&city=" + _pageData.city + "&key=" + _pageData.key + "&index=" + _pageData.pageIndex);//塞入历史记录，并改变当前url
         },
@@ -191,6 +194,10 @@
                 if (_pageData.isGetJobsByBS) {
                     type += "3-";
                     method.loadJobsInfo("GetJobsByBS", _pageData.city, _pageData.key, _pageData.pageIndex);
+                }
+                if (_pageData.isGetJobsByLG) {
+                    type += "4-";
+                    method.loadJobsInfo("GetJobsByLG", _pageData.city, _pageData.key, _pageData.pageIndex);
                 }
                 //if (event && event.clientX) //用来判断是否是鼠标点击触发
                 history.pushState(null, null, location.href.split("?")[0] + "?type=" + type + "&city=" + _pageData.city + "&key=" + _pageData.key + "&index=" + _pageData.pageIndex);//塞入历史记录，并改变当前url

@@ -271,7 +271,9 @@ div.col.source {
 
 /*移动端*/
 @media(max-width:992px) {
-
+    .chosen {
+        background-color: #ffebd6;
+    }
     .jobKey {
         width: 200px;
     }

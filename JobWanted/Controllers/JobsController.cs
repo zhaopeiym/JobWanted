@@ -9,6 +9,7 @@ using System;
 using System.Net.Http.Headers;
 using Talk.Cache;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 /*
@@ -189,19 +190,44 @@ namespace JobWanted.Controllers
         /// <returns></returns>
         public async Task<List<JobInfo>> GetJobsByLG(string city, string key, int index)
         {
-            //不知道为什么抓不到数据？ https 的原因？？
+            var cache = GetCacheObject();
+            var data = cache.GetData();
+            if (data != null)
+                return data.Data;
+
+            //不知道为什么抓不到数据？ https 的原因？？ 【170819，终于搞定】
             StringContent fromurlcontent = new StringContent("first=false&pn=" + index + "&kd=" + key);
             fromurlcontent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-            fromurlcontent.Headers.Add("X-Requested-With", "XMLHttpRequest");
-
-            var url = string.Format("https://www.lagou.com/jobs/positionAjax.json?city={0}&needAddtionalResult=false&isSchoolJob=0", city);
+            var url = string.Format("https://www.lagou.com/jobs/positionAjax.json?px=new&city={0}&needAddtionalResult=false&isSchoolJob=0", city);
             using (HttpClient http = new HttpClient())
             {
-                //MultipartFormDataContent MediaTypeHeaderValue  
+                //http.DefaultRequestHeaders.Remove("x-ms-request-root-id");
+                //http.DefaultRequestHeaders.Remove("x-ms-request-id");
+                //http.DefaultRequestHeaders.Remove("Request-Id"); 
+                //http.DefaultRequestHeaders.Host = "www.lagou.com";
+                //http.DefaultRequestHeaders.Add("Accept", "application/json");
+                //http.DefaultRequestHeaders.Add("X-Anit-Forge-Token", "None");
+
+                //😄😄😄，拉勾网 后台检测了user-agent、X-Requested-With、Referer还会检测list_是否有参数
+                http.DefaultRequestHeaders.Add("Referer", "https://www.lagou.com/jobs/list_.net");
+                http.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0");
+                http.DefaultRequestHeaders.Add("X-Requested-With", "XMLHttpRequest");
+
                 var responseMsg = await http.PostAsync(new Uri(url), fromurlcontent);
-                var bytes = await responseMsg.Content.ReadAsByteArrayAsync();
-                var html = Encoding.UTF8.GetString(bytes);
-                return null;
+                var htmlString = await responseMsg.Content.ReadAsStringAsync();
+                var lagouData = JsonConvert.DeserializeObject<LagouData>(htmlString);
+                var resultDatas = lagouData.content.positionResult.result;
+                var jobInfos = resultDatas.Select(t => new JobInfo()
+                {
+                    PositionName = t.positionName,
+                    CorporateName = t.companyShortName,
+                    Salary = t.salary,
+                    WorkingPlace = t.district + (t.businessZones == null ? "" : t.businessZones.Length <= 0 ? "" : t.businessZones[0]),
+                    ReleaseDate = DateTime.Parse(t.createTime).ToString("yyyy-MM-dd"),
+                    DetailsUrl = "https://www.lagou.com/jobs/" + t.positionId + ".html"
+                }).ToList();
+                cache.AddData(jobInfos);//添加缓存
+                return jobInfos;
             }
         }
 
@@ -314,6 +340,34 @@ namespace JobWanted.Controllers
                         //CompanySize = t.QuerySelectorAll(".terminalpage-right .terminal-company li")[0].TextContent,
                         Requirement = t.QuerySelectorAll(".bmsg.job_msg.inbox")[0].TextContent.Replace("职位描述：", ""),
                         CompanyIntroduction = t.QuerySelectorAll(".tmsg.inbox")[0].TextContent,
+                    })
+                    .FirstOrDefault();
+                return detailsInfo;
+            }
+        }
+
+        /// <summary>
+        /// 获取拉勾详细信息
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<DetailsInfo> GetDetailsInfoByLG(string url)
+        {
+            using (HttpClient http = new HttpClient())
+            {
+                http.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0");
+                var htmlString = await http.GetStringAsync(url);
+                HtmlParser htmlParser = new HtmlParser();
+                var detailsInfo = htmlParser.Parse(htmlString)
+                    .QuerySelectorAll("body")
+                    .Select(t => new DetailsInfo()
+                    {
+                        Experience = t.QuerySelectorAll(".job_request p").FirstOrDefault()?.TextContent,
+                        //Education = t.QuerySelectorAll(".terminalpage-left .terminal-ul li")[5].TextContent,
+                        CompanyNature = t.QuerySelectorAll(".job_company .c_feature li")[0]?.TextContent,
+                        CompanySize = t.QuerySelectorAll(".job_company .c_feature li")[2]?.TextContent,
+                        Requirement = t.QuerySelectorAll(".job_bt div").FirstOrDefault()?.TextContent.Replace("职位描述：", ""),
+                        //CompanyIntroduction = t.QuerySelectorAll(".tab-cont-box .tab-inner-cont")[1].TextContent,
                     })
                     .FirstOrDefault();
                 return detailsInfo;

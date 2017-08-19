@@ -131,8 +131,8 @@ namespace JobWanted.Controllers
                     {
                         PositionName = t.QuerySelectorAll(".t1 span a").FirstOrDefault().TextContent,
                         CorporateName = t.QuerySelectorAll(".t2 a").FirstOrDefault().TextContent,
-                        Salary = t.QuerySelectorAll(".t3").FirstOrDefault().TextContent,
-                        WorkingPlace = t.QuerySelectorAll(".t4").FirstOrDefault().TextContent,
+                        Salary = t.QuerySelectorAll(".t4").FirstOrDefault().TextContent,
+                        WorkingPlace = t.QuerySelectorAll(".t3").FirstOrDefault().TextContent,
                         ReleaseDate = t.QuerySelectorAll(".t5").FirstOrDefault().TextContent,
                         DetailsUrl = t.QuerySelectorAll(".t1 span a").FirstOrDefault().Attributes.FirstOrDefault(f => f.Name == "href").Value,
                     })

@@ -82,6 +82,10 @@
                 font-size: 17px;
                 font-weight: bold;
             }
+
+        .phone-div {
+            display: none;
+        }
         /*pc端*/
         @media (min-width: 992px) {
             .jobContent {
@@ -104,8 +108,9 @@
                 padding: 0px;
                 margin: 0;
             }
+
             body {
-                line-height: 1.5; 
+                line-height: 1.5;
             }
         }
     </style>
@@ -142,9 +147,10 @@
             <div>姓名：赵培</div>
             <div>性别：男</div>
             <div>
-                QQ：<a href="http://wpa.qq.com/msgrd?v=3&uin=532542551&site=qq&menu=yes">532542551</a>
-                <span style="color:red;font-size:12px;margin-left:5px">(注明:招聘)</span>
+                QQ号：<a href="http://wpa.qq.com/msgrd?v=3&uin=532542551&site=qq&menu=yes">532542551</a>
+                <span class="explain" style="color:red;font-size:12px;margin-left:5px">(注明:招聘)</span>
             </div>
+            <div class="phone-div">手机号码：<span class="myphone"></span></div>
             <div>出生年月：1990年7月</div>
             <div>居住地址：上海-浦东</div>
             <div>电子邮件：<a href="mailto:zhaopeiym@163.com">zhaopeiym@163.com</a></div>
@@ -311,7 +317,7 @@
                 <div>2、使用阿里云 + .NET Core2.0 + WebSocket + CentOS7.3 + nginx1.12.1</div>
                 <div>3、演示地址：<a target="_blank" href="http://socket.haojima.net/">http://socket.haojima.net/</a></div>
                 <div>4、源码地址：<a target="_blank" href="https://github.com/zhaopeiym/ChatRoom">https://github.com/zhaopeiym/ChatRoom</a></div>
-            </div> 
+            </div>
             <div class="part">
                 <div><strong>四、博客和源码</strong></div>
                 <div>1、博客地址：<a target="_blank" href="http://www.cnblogs.com/zhaopei">http://zhaopei.cnblogs.com</a> 【荣誉：博客园“推荐博客”前20名】</div>
@@ -319,7 +325,24 @@
                 <div>3、NuGet地址：<a target="_blank" href="https://www.nuget.org/profiles/benny.zhao">https://www.nuget.org/profiles/benny.zhao</a> </div>
             </div>
         </div>
-
     </div>
+
+    <script type="text/javascript"> 
+        window.onload = function () {
+            var phone = QueryString("phone");
+            if (!phone)
+                return;
+            document.getElementsByClassName("phone-div")[0].classList.remove("phone-div");
+            document.getElementsByClassName("myphone")[0].outerHTML = phone;
+            document.getElementsByClassName("explain")[0].outerHTML = "";
+        }
+
+        function QueryString(name) {
+            var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
+            if (result == null || result.length < 1)
+                return "";
+            return result[1];
+        }
+    </script>
 </body>
 </html>
